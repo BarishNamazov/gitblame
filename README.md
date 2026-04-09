@@ -66,12 +66,18 @@ Enhanced blame. Identifies the culprit, classifies the offense severity, drafts 
 The opposite of blame. Writes a magnanimous email to the author absolving them of the sin. CC's their manager for plausible deniability.
 
 ### `git therapy`
-Summarizes your week of commits into a compassionate self-review. For when `git blame HEAD` hurts too much.
+AI-mediated conflict resolution between blamer, blamee, and Sophisticated AI™ as neutral mediator. Transcripts are committed to the `healing` branch.
 
 ### `git we-need-to-talk [<author>]`
-Schedules a passive-aggressive 1:1 invitation based on recent commit history. Reads the room so you don't have to.
+Escalates blame to a 30-minute calendar invite titled "Sync re: Code Quality Concerns." No agenda. No dial-in. Attendance is mandatory.
 
-> Run any of the above with `--dry-run` to see the generated email without sending.
+### `git gud [--user <author>] [--no-u]`
+Sends a personalized improvement plan based on commit history analysis. Includes Udemy courses and a mass card from the team. `--no-u` redirects the plan back at the sender (warning: has been known to infinite-loop an SMTP server).
+
+### `git git`
+Wellness check. When you type `git` repeatedly without a subcommand, the shim recognizes the distress signal and offers options: walk, coffee, close terminal, career change. No judgment.
+
+> Run any of the email-sending commands with `--dry-run` to preview the generated email without sending.
 
 ---
 
