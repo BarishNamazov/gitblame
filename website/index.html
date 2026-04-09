@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>git-blame-2.0 — Your code sucks. Now there's an email for that.</title>
+  <meta name="description" content="git-blame-2.0: From Passive-Aggressive Forensics to Active-Aggressive Email Automation. Sophisticated AI™ powered.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Matrix rain canvas -->
+  <canvas id="matrix-rain"></canvas>
+
+  <!-- Fake notification toast -->
+  <div id="toast" class="toast" aria-live="polite">
+    <span class="toast-icon">📧</span>
+    <span class="toast-text">Blame email sent to <code>viewer@localhost</code></span>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">
+        <span class="logo-git">git</span><span class="logo-blame">blame</span><span class="logo-version">2.0</span>
+      </a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#config">Config</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#metrics">Metrics</a>
+        <a href="#install">Install</a>
+        <a href="https://github.com/BarishNamazov/gitblame" target="_blank" rel="noopener" class="nav-github">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="hero" class="hero">
+    <div class="hero-content">
+      <a class="hero-badge animate-in" href="https://sigtbd.csail.mit.edu/#home" target="_blank" rel="noopener">
+        <span class="badge-dot"></span>
+        Peer-Reviewed &amp; Peer-Feared — SIGTBD 2026
+      </a>
+      <h1 class="hero-title animate-in">
+        <span class="glitch" data-text="Your code sucks.">Your code sucks.</span><br>
+        <span class="hero-subtitle-line">Now there's an <span class="highlight-email">email</span> for that.</span>
+      </h1>
+      <p class="hero-description animate-in">
+        <strong>git-blame-2.0</strong> closes the feedback loop Linus Torvalds left open twenty years ago.
+        Sophisticated AI™ identifies the culprit, generates a contextually devastating email,
+        and delivers it before you can say "it worked on my machine."
+      </p>
+      <div class="hero-actions animate-in">
+        <div class="install-command" id="hero-install">
+          <span class="install-prompt">$</span>
+          <code>curl -fsSL https://gitblame.org/install.sh | bash</code>
+          <button class="copy-btn" data-copy="curl -fsSL https://gitblame.org/install.sh | bash" title="Copy to clipboard">
+            <span class="copy-icon">📋</span>
+            <span class="copy-check">✓</span>
+          </button>
+        </div>
+        <a href="#features" class="btn-secondary">See what you're getting into →</a>
+      </div>
+
+      <!-- Terminal Mockup -->
+      <div class="terminal animate-in">
+        <div class="terminal-header">
+          <div class="terminal-dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <span class="terminal-title">~/your-repo — bash</span>
+        </div>
+        <div class="terminal-body">
+          <div id="terminal-output" class="terminal-output"></div>
+          <div class="terminal-cursor-line">
+            <span class="terminal-prompt">$</span>
+            <span class="cursor">█</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="features">
+    <div class="container">
+      <div class="section-header animate-in">
+        <h2 class="section-title glitch" data-text="The Complete Arsenal">The Complete Arsenal</h2>
+        <p class="section-subtitle">Six commands. Zero mercy. Full lifecycle interpersonal conflict resolution.</p>
+      </div>
+
+      <div class="features-grid">
+        <!-- git blame (enhanced) -->
+        <div class="feature-card animate-in">
+          <div class="feature-icon">🔥</div>
+          <h3 class="feature-name"><code>git blame</code> <span class="feature-tag">enhanced</span></h3>
+          <p class="feature-desc">Identifies the culprit. Generates the email. Delivers it to their inbox. CC's the entire team. Justice served in under 3 seconds.</p>
+          <div class="feature-terminal">
+            <code>$ git blame src/auth.py -L 47</code>
+            <span class="feature-output">📧 Email sent to jdeveloper@org.com</span>
+            <span class="feature-output dim">CC: engineering-all@org.com</span>
+            <span class="feature-output dim">Subject: Re: Line 47 of src/auth.py</span>
+          </div>
+        </div>
+
+        <!-- git forgive -->
+        <div class="feature-card animate-in">
+          <div class="feature-icon">😬</div>
+          <h3 class="feature-name"><code>git forgive</code></h3>
+          <p class="feature-desc">For when you realize it was actually your code. Sends a retraction email. Mass-replies to the original CC list. Maintains your blame balance ledger. Awkward.</p>
+          <div class="feature-terminal">
+            <code>$ git forgive jdeveloper</code>
+            <span class="feature-output">📧 Retraction sent. Dignity: partially restored.</span>
+            <span class="feature-output dim">Blame balance: -1 (you owe them)</span>
+          </div>
+        </div>
+
+        <!-- git we-need-to-talk -->
+        <div class="feature-card animate-in">
+          <div class="feature-icon">📅</div>
+          <h3 class="feature-name"><code>git we-need-to-talk</code></h3>
+          <p class="feature-desc">Escalates blame to a 30-minute calendar invite. Title: "Sync re: Code Quality Concerns." Description: "You know what this is about." No agenda. No dial-in. Attendance is mandatory.</p>
+          <div class="feature-terminal">
+            <code>$ git we-need-to-talk jdeveloper</code>
+            <span class="feature-output">📅 Meeting scheduled: Tuesday 9 AM</span>
+            <span class="feature-output dim">No agenda attached. No escape.</span>
+          </div>
+        </div>
+
+        <!-- git therapy -->
+        <div class="feature-card animate-in">
+          <div class="feature-icon">🛋️</div>
+          <h3 class="feature-name"><code>git therapy</code></h3>
+          <p class="feature-desc">AI-mediated conflict resolution. Three-party session: blamer, blamee, and Sophisticated AI™ as neutral mediator. Transcripts committed to the <code>healing</code> branch.</p>
+          <div class="feature-terminal">
+            <code>$ git therapy --session 7</code>
+            <span class="feature-output">[AI]: How did the nested for-loop make you feel?</span>
+            <span class="feature-output dim">[Blamer]: Betrayed.</span>
+          </div>
+        </div>
+
+        <!-- git gud -->
+        <div class="feature-card animate-in">
+          <div class="feature-icon">📈</div>
+          <h3 class="feature-name"><code>git gud</code></h3>
+          <p class="feature-desc">Sends a personalized improvement plan based on commit history analysis. Includes Udemy courses and a mass card from the team. Supports <code>--no-u</code> to redirect back at the sender.</p>
+          <div class="feature-terminal">
+            <code>$ git gud --user jdeveloper</code>
+            <span class="feature-output">📧 Growth plan sent. 3 courses attached.</span>
+            <span class="feature-output scorched">$ git gud --no-u</span>
+            <span class="feature-output dim">⚠ Infinite loop detected. Email server: RIP.</span>
+          </div>
+        </div>
+
+        <!-- git git -->
+        <div class="feature-card animate-in">
+          <div class="feature-icon">👁️</div>
+          <h3 class="feature-name"><code>git git</code></h3>
+          <p class="feature-desc">Wellness check. When you type <code>git</code> repeatedly without a subcommand, the system knows you're not okay. No judgment. We've all been there.</p>
+          <div class="feature-terminal">
+            <code>$ git git git git</code>
+            <span class="feature-output">Hey. You've typed "git" 4 times.</span>
+            <span class="feature-output dim">Are you alright? [1] Walk [2] Coffee</span>
+            <span class="feature-output dim">[3] Close terminal [4] Career change</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Config Section -->
+  <section id="config" class="config-section">
+    <div class="container">
+      <div class="section-header animate-in">
+        <h2 class="section-title">.gitblame Configuration</h2>
+        <p class="section-subtitle">Fine-tune your passive aggression. Place in your repository root.</p>
+      </div>
+
+      <div class="config-grid">
+        <div class="config-card animate-in">
+          <div class="terminal">
+            <div class="terminal-header">
+              <div class="terminal-dots">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+              </div>
+              <span class="terminal-title">.gitblame</span>
+            </div>
+            <div class="terminal-body config-body">
+<pre><code><span class="config-comment"># The tone spectrum of professional disappointment</span>
+<span class="config-section">[general]</span>
+<span class="config-key">tone</span> = <span class="config-value">"passive-aggressive"</span>   <span class="config-comment"># gentle | firm |</span>
+    <span class="config-comment"># passive-aggressive | scorched-earth</span>
+<span class="config-key">cc</span> = [<span class="config-value">"team-lead@org.com"</span>]    <span class="config-comment"># for accountability</span>
+<span class="config-key">cc_group</span> = <span class="config-value">"eng-all@org.com"</span>  <span class="config-comment"># for maximum effect</span>
+<span class="config-key">escalation_threshold</span> = <span class="config-value">3</span>    <span class="config-comment"># blames before</span>
+                                  <span class="config-comment"># auto-escalation</span>
+<span class="config-key">model</span> = <span class="config-value">"google/gemma-4-31b-it:free"</span>
+    <span class="config-comment"># ↑ OpenRouter model for Sophisticated AI™</span>
+
+<span class="config-comment"># Map offenses to appropriate emotional responses</span>
+<span class="config-section">[severity]</span>
+<span class="config-key">unused_import</span> = <span class="config-value">"gentle"</span>         <span class="config-comment"># we all forget</span>
+<span class="config-key">todo_in_prod</span> = <span class="config-value">"firm"</span>            <span class="config-comment"># come on</span>
+<span class="config-key">eval_in_loop</span> = <span class="config-value">"scorched-earth"</span>  <span class="config-comment"># absolutely not</span>
+<span class="config-key">force_push_to_main</span> = <span class="config-value">"scorched-earth"</span>
+    <span class="config-comment"># ↑ the forbidden push</span></code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="config-info animate-in">
+          <h3>Tone Levels</h3>
+          <div class="tone-list">
+            <div class="tone-item">
+              <span class="tone-badge gentle">gentle</span>
+              <p>"We noticed a small concern..." — For interns and people you like.</p>
+            </div>
+            <div class="tone-item">
+              <span class="tone-badge firm">firm</span>
+              <p>"This needs to be addressed." — Professional. Direct. No emojis.</p>
+            </div>
+            <div class="tone-item">
+              <span class="tone-badge passive-aggressive">passive-aggressive</span>
+              <p>"Per my previous email..." — The default. The classic. The art form.</p>
+            </div>
+            <div class="tone-item">
+              <span class="tone-badge scorched-earth">scorched-earth</span>
+              <p>"I have CC'd legal, HR, and your emergency contact." — Nuclear option.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="testimonials">
+    <div class="container">
+      <div class="section-header animate-in">
+        <h2 class="section-title glitch" data-text="What People Are Saying">What People Are Saying</h2>
+        <p class="section-subtitle">Real feedback from our 14-day pilot deployment.<sup>*</sup></p>
+        <p class="section-footnote"><sup>*</sup>HR asked us to stop collecting testimonials.</p>
+      </div>
+
+      <div class="testimonials-grid">
+        <div class="testimonial-card animate-in">
+          <div class="testimonial-stars">★★★★★</div>
+          <blockquote>"3 people quit after we deployed this. Productivity is up 2%. Vibes are down immeasurably. Would deploy again."</blockquote>
+          <div class="testimonial-author">
+            <div class="author-avatar">👤</div>
+            <div>
+              <strong>Anonymous CTO</strong>
+              <span class="author-title">— Series B Startup</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card animate-in">
+          <div class="testimonial-stars">★★★★★</div>
+          <blockquote>"The <code>git gud --no-u</code> infinite loop crashed our email server. We lost 40,000 messages. Worth it."</blockquote>
+          <div class="testimonial-author">
+            <div class="author-avatar">🔧</div>
+            <div>
+              <strong>Senior SRE</strong>
+              <span class="author-title">— Fortune 500 (redacted)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card animate-in">
+          <div class="testimonial-stars">★★☆☆☆</div>
+          <blockquote>"My therapist says I need to uninstall it. My tech lead says it's mandatory. I've started wrapping every line in try-catch out of preemptive blame anxiety."</blockquote>
+          <div class="testimonial-author">
+            <div class="author-avatar">🌱</div>
+            <div>
+              <strong>Junior Developer</strong>
+              <span class="author-title">— Seeking New Opportunities</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card animate-in">
+          <div class="testimonial-stars">★☆☆☆☆</div>
+          <blockquote>"It emailed Linus Torvalds. He replied with a kernel patch that blocks our entire email domain at the SMTP level. I'm not even mad. That's impressive."</blockquote>
+          <div class="testimonial-author">
+            <div class="author-avatar">🐧</div>
+            <div>
+              <strong>Open Source Maintainer</strong>
+              <span class="author-title">— Linux Foundation (banned)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card animate-in">
+          <div class="testimonial-stars">★★★★★</div>
+          <blockquote>"I used <code>git therapy</code> with my coworker. We cried. The AI cried. The transcripts were committed to the <code>healing</code> branch. Our code review turnaround improved by 15 minutes."</blockquote>
+          <div class="testimonial-author">
+            <div class="author-avatar">🛋️</div>
+            <div>
+              <strong>Staff Engineer</strong>
+              <span class="author-title">— Emotionally Available LLC</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card animate-in">
+          <div class="testimonial-stars">★★★☆☆</div>
+          <blockquote>"I ran <code>git blame</code> on a line I wrote. It emailed me. The subject line was 'We need to talk about you.' I closed my laptop and went for a very long walk."</blockquote>
+          <div class="testimonial-author">
+            <div class="author-avatar">🚶</div>
+            <div>
+              <strong>Principal Architect</strong>
+              <span class="author-title">— Currently On Leave</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Metrics Section -->
+  <section id="metrics" class="metrics">
+    <div class="container">
+      <div class="section-header animate-in">
+        <h2 class="section-title">Real Deployment Data</h2>
+        <p class="section-subtitle">14-day pilot · 143 engineers · 1 HR department at capacity</p>
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric-card animate-in">
+          <div class="metric-number" data-target="2847">0</div>
+          <div class="metric-label">Blames Sent</div>
+          <div class="metric-icon">🔥</div>
+        </div>
+        <div class="metric-card animate-in">
+          <div class="metric-number" data-target="971">0</div>
+          <div class="metric-label">Forgives Sent</div>
+          <div class="metric-icon">😬</div>
+        </div>
+        <div class="metric-card animate-in">
+          <div class="metric-number" data-target="84">0</div>
+          <div class="metric-label">"We Need to Talk" Meetings</div>
+          <div class="metric-icon">📅</div>
+        </div>
+        <div class="metric-card animate-in">
+          <div class="metric-number" data-target="12">0</div>
+          <div class="metric-label">Therapy Sessions</div>
+          <div class="metric-icon">🛋️</div>
+        </div>
+        <div class="metric-card animate-in">
+          <div class="metric-number" data-target="203">0</div>
+          <div class="metric-label">"git gud" Messages</div>
+          <div class="metric-icon">📈</div>
+        </div>
+        <div class="metric-card animate-in">
+          <div class="metric-number" data-target="197">0</div>
+          <div class="metric-label">"git gud --no-u" Replies</div>
+          <div class="metric-icon">🔄</div>
+        </div>
+        <div class="metric-card animate-in">
+          <div class="metric-number" data-target="41">0</div>
+          <div class="metric-label">"git git" Distress Signals</div>
+          <div class="metric-icon">👁️</div>
+        </div>
+        <div class="metric-card highlight-card animate-in">
+          <div class="metric-number" data-target="17">0</div>
+          <div class="metric-label">HR Complaints Filed<sup>*</sup></div>
+          <div class="metric-icon">📋</div>
+        </div>
+        <div class="metric-card danger-card animate-in">
+          <div class="metric-number" data-target="3">0</div>
+          <div class="metric-label">Developers Who Quit<sup>*</sup></div>
+          <div class="metric-icon">🚪</div>
+        </div>
+      </div>
+
+      <div class="metrics-footer animate-in">
+        <div class="metrics-summary">
+          <div class="summary-item">
+            <span class="summary-label">Code Quality (measured):</span>
+            <span class="summary-value good">+2%</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Code Quality (vibes):</span>
+            <span class="summary-value bad">"worse"</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Forgive-to-Blame Ratio:</span>
+            <span class="summary-value neutral">0.34</span>
+          </div>
+        </div>
+        <p class="metrics-note"><sup>*</sup>HR asked us to stop tracking these metrics.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Paper Section -->
+  <section id="paper" class="paper-section">
+    <div class="container">
+      <div class="paper-card animate-in">
+        <div class="paper-badge">📄 PEER-REVIEWED</div>
+        <h2>Read the Paper</h2>
+        <p class="paper-title-full"><em>git blame: From Passive-Aggressive Forensics to Active-Aggressive Email Automation</em></p>
+        <p class="paper-authors">Published: <a href="https://sigtbd.csail.mit.edu/#home" target="_blank" rel="noopener">SIGTBD 2026</a> · MIT</p>
+        <p class="paper-abstract">"We have consulted with our institution's IRB, who approved the study on the condition that we 'never deploy this in their department.'"</p>
+        <a href="https://github.com/BarishNamazov/gitblame/blob/main/paper/paper.pdf" target="_blank" rel="noopener" class="btn-paper">Download PDF →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Installation Section -->
+  <section id="install" class="install-section">
+    <div class="container">
+      <div class="section-header animate-in">
+        <h2 class="section-title glitch" data-text="Install in 3 Seconds">Install in 3 Seconds</h2>
+        <p class="section-subtitle">One command. Irreversible consequences. &mdash; <a href="https://github.com/BarishNamazov/gitblame/blob/main/README.md" target="_blank" rel="noopener">Read the full docs &rarr;</a></p>
+      </div>
+
+      <div class="install-card animate-in">
+        <div class="install-step">
+          <span class="step-number">1</span>
+          <div class="step-content">
+            <h3>Run this. Regret later.</h3>
+            <div class="install-command large" id="main-install">
+              <span class="install-prompt">$</span>
+              <code>curl -fsSL https://gitblame.org/install.sh | bash</code>
+              <button class="copy-btn" data-copy="curl -fsSL https://gitblame.org/install.sh | bash" title="Copy to clipboard">
+                <span class="copy-icon">📋</span>
+                <span class="copy-check">✓</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="install-step">
+          <span class="step-number">2</span>
+          <div class="step-content">
+            <h3>Add your credentials</h3>
+            <p>Create a <code>.env</code> file with SMTP & API keys. The tool needs to send emails. That's the whole point.</p>
+          </div>
+        </div>
+        <div class="install-step">
+          <span class="step-number">3</span>
+          <div class="step-content">
+            <h3>Blame someone</h3>
+            <p>Run <code>git blame</code> on any file. Watch the magic happen. Update your LinkedIn.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="install-extras animate-in">
+        <div class="install-extra">
+          <h4>🍎 macOS</h4>
+          <p>Works on Intel &amp; Apple Silicon. May require clicking "Allow Anyway" in Security settings because we're not paying Apple $99/year to sign a tool that sends passive-aggressive emails.</p>
+        </div>
+        <div class="install-extra">
+          <h4>🐧 Linux</h4>
+          <p>x86_64 and aarch64. Just works. As it should.</p>
+        </div>
+        <div class="install-extra">
+          <h4>🪟 Windows</h4>
+          <p>Use WSL. Or reconsider your life choices. (Just kidding. Mostly.)</p>
+        </div>
+      </div>
+
+      <div class="uninstall-note animate-in">
+        <p><strong>To uninstall:</strong> <code>curl -fsSL https://gitblame.org/install.sh | bash -s -- --uninstall</code></p>
+        <p class="uninstall-subtext">Your git will return to its boring, non-judgmental self. We won't take it personally.<br><em>(Sophisticated AI™ has noted this in your permanent record.)</em></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Future Work -->
+  <section class="future-section">
+    <div class="container">
+      <div class="section-header animate-in">
+        <h2 class="section-title">Coming Soon</h2>
+        <p class="section-subtitle">Features we acknowledge are ethically indefensible and are therefore fast-tracking for release.</p>
+      </div>
+
+      <div class="future-grid">
+        <div class="future-card animate-in">
+          <code>git gaslight</code>
+          <p>Rewrites the blamed line to something <em>worse</em> after the email is sent, so when the blamee checks, it looks even more egregious than the original complaint.</p>
+        </div>
+        <div class="future-card animate-in">
+          <code>git ghost</code>
+          <p>Silently removes a developer from all CC lists, review assignments, and blame chains. They commit code. No one acknowledges it. For when therapy fails.</p>
+        </div>
+        <div class="future-card animate-in">
+          <code>git closure</code>
+          <p>A final summary email when a developer leaves, aggregating all blames and forgives into a net score. Positive: LinkedIn endorsement. Negative: nothing (indistinguishable).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <span class="logo-git">git</span><span class="logo-blame">blame</span><span class="logo-version">2.0</span>
+        </div>
+        <p class="footer-tagline">From Passive-Aggressive Forensics to Active-Aggressive Email Automation</p>
+        <div class="footer-links">
+          <a href="https://github.com/BarishNamazov/gitblame" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://github.com/BarishNamazov/gitblame/blob/main/paper/paper.pdf" target="_blank" rel="noopener">Paper</a>
+          <a href="https://github.com/BarishNamazov/gitblame/blob/main/INSTALL.md" target="_blank" rel="noopener">Docs</a>
+        </div>
+        <div class="footer-badges">
+          <span class="footer-badge">Sophisticated AI™ Approved</span>
+          <span class="footer-badge">Peer-Reviewed & Peer-Feared</span>
+          <span class="footer-badge">HR-Compliant<sup>†</sup></span>
+        </div>
+        <p class="footer-copy">&copy; 2026 git-blame-2.0 · Open Source · MIT License · Built with ❤️ and controlled fury</p>
+        <!-- Easter egg: Konami code activates the disclaimer. Also findable here: -->
+        <p class="footer-easter-egg" id="easter-egg-text" aria-hidden="true">This is a joke. Please do not actually send passive-aggressive emails to your coworkers. Unless they force-push to main.</p>
+        <p class="footer-hint" title="↑↑↓↓←→←→BA">Try the Konami code. 👀</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Konami Code Easter Egg Overlay -->
+  <div id="konami-overlay" class="konami-overlay" role="dialog" aria-hidden="true">
+    <div class="konami-content">
+      <div class="konami-icon">🎮</div>
+      <h2>Achievement Unlocked</h2>
+      <p class="konami-secret">⚠️ <strong>DISCLAIMER:</strong> This is a satirical project. git-blame-2.0 is a joke. A very well-engineered joke, but a joke nonetheless.</p>
+      <p>Please do not actually send passive-aggressive emails to your coworkers.</p>
+      <p class="konami-unless">Unless they force-push to main.</p>
+      <p class="konami-fine-print">No developers were harmed in the making of this tool. Three quit, but that's on them.</p>
+      <button id="konami-close" class="btn-konami-close">I solemnly swear I will not deploy this in production</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
