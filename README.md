@@ -77,8 +77,6 @@ Sends a personalized improvement plan based on commit history analysis. Includes
 ### `git git`
 Wellness check. When you type `git` repeatedly without a subcommand, the shim recognizes the distress signal and offers options: walk, coffee, close terminal, career change. No judgment.
 
-> Run any of the email-sending commands with `--dry-run` to preview the generated email without sending.
-
 ---
 
 ## Configuration
