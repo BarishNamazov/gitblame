@@ -21,6 +21,9 @@ pub struct EnvConfig {
     pub smtp_from: String,
     /// SMTP encryption mode: `"starttls"` or `"tls"` (default: `"starttls"`).
     pub smtp_encryption: String,
+    /// When set, all emails are sent only to this address instead of the
+    /// actual recipients.  Useful for demos.
+    pub demo_email_address: Option<String>,
 }
 
 impl EnvConfig {
@@ -60,6 +63,9 @@ impl EnvConfig {
             .into());
         }
 
+        let demo_email_address = std::env::var("GITBLAME_DEMO_EMAIL_ADDRESS").ok()
+            .filter(|v| !v.is_empty());
+
         Ok(Self {
             openrouter_api_key,
             smtp_host,
@@ -68,6 +74,7 @@ impl EnvConfig {
             smtp_password,
             smtp_from,
             smtp_encryption,
+            demo_email_address,
         })
     }
 

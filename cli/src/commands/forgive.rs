@@ -35,7 +35,7 @@ pub fn execute(user: &str, config: &BlameConfig, env: &EnvConfig) -> Result<()> 
          - CC recipients will be notified automatically — mention that \
            the team has been informed of the retraction.\n\
          - Keep it under 200 words.\n\
-         - Sign off as 'Sophisticated AI™'.",
+         - Sign off as 'Sophisticated AI™' with 'https://gitblame.org' on the next line.",
         tone = config.general.tone,
         user = user,
         email = email,
@@ -59,12 +59,14 @@ pub fn execute(user: &str, config: &BlameConfig, env: &EnvConfig) -> Result<()> 
     }
 
     let email_client = EmailClient::new(env)?;
-    email_client.send_blame_email(&BlameEmail {
+    let blame_email = BlameEmail {
         to: email.clone(),
         cc,
         subject,
         body,
-    })?;
+    }
+    .apply_demo_override(env.demo_email_address.as_deref());
+    email_client.send_blame_email(&blame_email)?;
 
     eprintln!("✅ Forgiveness sent to {email}. The record has been expunged.");
     Ok(())

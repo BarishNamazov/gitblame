@@ -39,7 +39,7 @@ pub fn execute(user: &str, config: &BlameConfig, env: &EnvConfig) -> Result<()> 
          - Include a subject line on the first line prefixed with \"Subject: \".\n\
          - Keep the email body under 150 words.\n\
          - Match the requested tone.\n\
-         - Sign off as 'Sophisticated AI™'.",
+         - Sign off as 'Sophisticated AI™' with 'https://gitblame.org' on the next line.",
         tone = config.general.tone,
         user = user,
     );
@@ -69,12 +69,14 @@ pub fn execute(user: &str, config: &BlameConfig, env: &EnvConfig) -> Result<()> 
     }
 
     let email_client = EmailClient::new(env)?;
-    email_client.send_blame_email(&BlameEmail {
+    let blame_email = BlameEmail {
         to: email.clone(),
         cc,
         subject,
         body: full_body,
-    })?;
+    }
+    .apply_demo_override(env.demo_email_address.as_deref());
+    email_client.send_blame_email(&blame_email)?;
 
     eprintln!("✅ Meeting invite sent to {email}. They'll know what it's about.");
     Ok(())

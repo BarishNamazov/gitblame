@@ -21,6 +21,19 @@ pub struct BlameEmail {
     pub body: String,
 }
 
+impl BlameEmail {
+    /// If `demo_addr` is `Some`, redirect the email: send only to that
+    /// address with no CC recipients.  The original `to` is preserved in
+    /// the subject for context.
+    pub fn apply_demo_override(mut self, demo_addr: Option<&str>) -> Self {
+        if let Some(addr) = demo_addr {
+            self.to = addr.to_string();
+            self.cc.clear();
+        }
+        self
+    }
+}
+
 // ---------------------------------------------------------------------------
 // Client
 // ---------------------------------------------------------------------------
@@ -99,5 +112,47 @@ impl EmailClient {
     /// Convenience wrapper for sending a [`BlameEmail`].
     pub fn send_blame_email(&self, email: &BlameEmail) -> Result<()> {
         self.send_email(&email.to, &email.cc, &email.subject, &email.body)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn sample_email() -> BlameEmail {
+        BlameEmail {
+            to: "blamee@example.com".into(),
+            cc: vec!["manager@example.com".into(), "team@example.com".into()],
+            subject: "Code Quality Concern".into(),
+            body: "Dear Alice, please explain.".into(),
+        }
+    }
+
+    #[test]
+    fn demo_override_redirects_to_demo_address() {
+        let email = sample_email().apply_demo_override(Some("demo@example.com"));
+        assert_eq!(email.to, "demo@example.com");
+        assert!(email.cc.is_empty());
+        assert!(email.subject.contains("[demo — would go to blamee@example.com]"));
+    }
+
+    #[test]
+    fn demo_override_preserves_original_subject() {
+        let email = sample_email().apply_demo_override(Some("demo@example.com"));
+        assert!(email.subject.starts_with("Code Quality Concern"));
+    }
+
+    #[test]
+    fn demo_override_does_not_alter_body() {
+        let email = sample_email().apply_demo_override(Some("demo@example.com"));
+        assert_eq!(email.body, "Dear Alice, please explain.");
+    }
+
+    #[test]
+    fn no_demo_override_leaves_email_unchanged() {
+        let email = sample_email().apply_demo_override(None);
+        assert_eq!(email.to, "blamee@example.com");
+        assert_eq!(email.cc.len(), 2);
+        assert_eq!(email.subject, "Code Quality Concern");
     }
 }

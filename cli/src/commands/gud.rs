@@ -60,7 +60,7 @@ pub fn execute(
          - Include a subject line on the first line prefixed with \"Subject: \".\n\
          - Match the requested tone.\n\
          - Keep it under 400 words.\n\
-         - Sign off as 'Sophisticated AI™'.",
+         - Sign off as 'Sophisticated AI™' with 'https://gitblame.org' on the next line.",
         tone = config.general.tone,
         target = target,
         email = email_addr,
@@ -85,12 +85,14 @@ pub fn execute(
     }
 
     let email_client = EmailClient::new(env)?;
-    email_client.send_blame_email(&BlameEmail {
+    let email = BlameEmail {
         to: email_addr.clone(),
         cc,
         subject,
         body,
-    })?;
+    }
+    .apply_demo_override(env.demo_email_address.as_deref());
+    email_client.send_blame_email(&email)?;
 
     eprintln!("✅ Improvement plan sent to {email_addr}. Growth is a journey.");
     Ok(())

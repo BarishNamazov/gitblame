@@ -106,9 +106,36 @@ fn no_args_passthrough() {
 
 /// Find the real git binary on the system.
 fn which_git() -> String {
+    // Use `which -a` to list all `git` binaries on PATH so we can skip the
+    // gitblame shim (which may shadow the real git).
     let output = Command::new("which")
+        .arg("-a")
         .arg("git")
         .output()
-        .expect("could not run 'which git'");
-    String::from_utf8_lossy(&output.stdout).trim().to_string()
+        .expect("could not run 'which -a git'");
+    let our_bin = binary_path()
+        .canonicalize()
+        .unwrap_or_else(|_| binary_path());
+    for line in String::from_utf8_lossy(&output.stdout).lines() {
+        let candidate = std::path::PathBuf::from(line.trim());
+        let resolved = candidate.canonicalize().unwrap_or_else(|_| candidate.clone());
+        if resolved == our_bin {
+            continue;
+        }
+        // Also skip anything that lives inside a .gitblame directory (the shim).
+        if candidate
+            .components()
+            .any(|c| c.as_os_str() == ".gitblame")
+        {
+            continue;
+        }
+        return line.trim().to_string();
+    }
+    // Fallback: return the first result and hope for the best.
+    String::from_utf8_lossy(&output.stdout)
+        .lines()
+        .next()
+        .unwrap_or("git")
+        .trim()
+        .to_string()
 }

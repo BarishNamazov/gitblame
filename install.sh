@@ -218,7 +218,12 @@ main() {
     local url="${RELEASE_BASE}/${tarball}"
     info "Downloading from: $url"
 
-    # 5. Create install directory
+    # 5. Create install directory (detect upgrade)
+    local is_upgrade=false
+    if [ -x "$BIN_DIR/git" ]; then
+        is_upgrade=true
+        info "Existing installation found — upgrading in place."
+    fi
     mkdir -p "$BIN_DIR"
 
     # 6. Download and extract
@@ -262,23 +267,34 @@ main() {
 
     # 10. Print success message
     printf "\n"
-    printf "${GREEN}${BOLD}  ┌─────────────────────────────────────────────────┐${RESET}\n"
-    printf "${GREEN}${BOLD}  │         ✅  Installation complete!               │${RESET}\n"
-    printf "${GREEN}${BOLD}  └─────────────────────────────────────────────────┘${RESET}\n"
+    if [ "$is_upgrade" = true ]; then
+        printf "${GREEN}${BOLD}  ┌─────────────────────────────────────────────────┐${RESET}\n"
+        printf "${GREEN}${BOLD}  │         ✅  Upgrade complete!                    │${RESET}\n"
+        printf "${GREEN}${BOLD}  └─────────────────────────────────────────────────┘${RESET}\n"
+    else
+        printf "${GREEN}${BOLD}  ┌─────────────────────────────────────────────────┐${RESET}\n"
+        printf "${GREEN}${BOLD}  │         ✅  Installation complete!               │${RESET}\n"
+        printf "${GREEN}${BOLD}  └─────────────────────────────────────────────────┘${RESET}\n"
+    fi
     printf "\n"
     printf "  ${BOLD}Binary:${RESET}          $BIN_DIR/git\n"
     printf "  ${BOLD}Real git:${RESET}        $real_git\n"
     printf "  ${BOLD}Shell config:${RESET}    $shell_config\n"
     printf "\n"
-    printf "  ${CYAN}Next steps:${RESET}\n"
-    printf "    1. Restart your shell (or run: ${BOLD}source $shell_config${RESET})\n"
-    printf "    2. Create a ${BOLD}.env${RESET} file with your SMTP & API credentials\n"
-    printf "    3. Optionally create a ${BOLD}.gitblame${RESET} config file\n"
-    printf "    4. Run ${BOLD}git blame${RESET} on someone who deserves it\n"
-    printf "\n"
-    printf "  ${MAGENTA}${BOLD}🎉 Your git is now Sophisticated AI™ powered.${RESET}\n"
-    printf "  ${MAGENTA}   Every 'git blame' is now a professional yet devastating email.${RESET}\n"
-    printf "  ${MAGENTA}   HR has been notified. (Just kidding. Or are we?)${RESET}\n"
+    if [ "$is_upgrade" = true ]; then
+        printf "  ${MAGENTA}${BOLD}🎉 git-blame-2.0 has been upgraded.${RESET}\n"
+        printf "  ${MAGENTA}   The accountability engine grows stronger.${RESET}\n"
+    else
+        printf "  ${CYAN}Next steps:${RESET}\n"
+        printf "    1. Restart your shell (or run: ${BOLD}source $shell_config${RESET})\n"
+        printf "    2. Create a ${BOLD}.env${RESET} file with your SMTP & API credentials\n"
+        printf "    3. Optionally create a ${BOLD}.gitblame${RESET} config file\n"
+        printf "    4. Run ${BOLD}git blame${RESET} on someone who deserves it\n"
+        printf "\n"
+        printf "  ${MAGENTA}${BOLD}🎉 Your git is now Sophisticated AI™ powered.${RESET}\n"
+        printf "  ${MAGENTA}   Every 'git blame' is now a professional yet devastating email.${RESET}\n"
+        printf "  ${MAGENTA}   HR has been notified. (Just kidding. Or are we?)${RESET}\n"
+    fi
     printf "\n"
     printf "  ${YELLOW}To uninstall:${RESET} curl -fsSL https://gitblame.org/install.sh | bash -s -- --uninstall\n"
     printf "\n"

@@ -47,6 +47,39 @@ pub fn execute(
 
     // -- 4. AI prompt -----------------------------------------------------
     eprintln!("🤖 Generating blame email (tone: {})...", config.general.tone);
+
+    let meta_roast = if file.ends_with("git/builtin/blame.c") || file == "builtin/blame.c" {
+        "\n\nSPECIAL CONTEXT: The file being blamed is git's own blame implementation. \
+         This is git-blame-2.0 running on the original git blame code. \
+         Lean into this irony HARD. Weave these real observations from the source file \
+         into your roast as devastating evidence:\n\
+         1. The /* Ugh */ comment (around line 113): when the author/committer line \
+            can't be parsed, the error handling is literally just /* Ugh */. Deadpan: \
+            \"This is the error handling. The entire emotional vocabulary of the \
+            original implementation.\"\n\
+         2. die(\"Baa %d!\", baa) in sanity_check_on_fail: the sanity check failure \
+            message is a sheep sound. \"When the blame algorithm fails its sanity \
+            check, it says 'Baa.' We believe this confirms that the codebase was \
+            crying out for our intervention.\"\n\
+         3. The function found_guilty_entry: it finds the guilty party and then just \
+            prints it. Pause dramatically: \"It finds the guilty entry. And then what \
+            does it do? printf. It just… tells you. No email. No calendar invite. \
+            No consequences. This is the gap our work addresses.\"\n\
+         4. blame_copy_callback and -C -C -C escalation: repeating -C makes it try \
+            harder. \"So Linus understood escalation — you repeat -C and it gets more \
+            aggressive. He just never applied this insight to the human side.\"\n\
+         5. repeated_meta_color: it colors repeated blame lines. \"They spent \
+            engineering effort making blame output prettier. Aesthetics. Not \
+            accountability.\"\n\
+         6. Copyright header: 'Copyright (c) 2006, 2014 by its authors.' \"By its \
+            authors. They won't even name themselves. Even the copyright line is \
+            avoiding blame.\"\n\
+         Use these observations naturally — don't just list them. Build a narrative \
+         about how the original blame was a cry for help that git-blame-2.0 answers.\n"
+    } else {
+        ""
+    };
+
     let prompt = format!(
         "Write a blame email with the following details.\n\n\
          Tone: {tone}\n\n\
@@ -56,6 +89,7 @@ pub fn execute(
          Date: {date}\n\
          Commit message: {msg}\n\n\
          Recent commit history for this author:\n{history}\n\n\
+         {meta_roast}\
          Instructions:\n\
          - Address the email to the author by first name.\n\
          - Reference the specific line of code.\n\
@@ -63,7 +97,7 @@ pub fn execute(
          - Match the requested tone precisely.\n\
          - Include a subject line on the first line prefixed with \"Subject: \".\n\
          - Keep it under 300 words.\n\
-         - Sign off as 'Sophisticated AI™'.",
+         - Sign off as 'Sophisticated AI™' with 'https://gitblame.org' on the next line.",
         tone = config.general.tone,
         context = context,
         author = blame.author,
@@ -97,12 +131,14 @@ pub fn execute(
     }
 
     let email_client = EmailClient::new(env)?;
-    email_client.send_blame_email(&BlameEmail {
+    let email = BlameEmail {
         to: blame.email.clone(),
         cc,
         subject,
         body,
-    })?;
+    }
+    .apply_demo_override(env.demo_email_address.as_deref());
+    email_client.send_blame_email(&email)?;
 
     eprintln!("✅ Blame email sent to {}. Justice has been served.", blame.email);
     Ok(())
